@@ -14,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::controller(UserAuthController::class)->group(function() {
+
+    Route::get("/register", "displayRegisterPage")->middleware('guest');
+
+    Route::post("/attempt_register", 'registerUser');
+
+    Route::get("/login", 'displayLoginPage')->name("login")->middleware('guest');
+
+    Route::post("/attempt_login", 'authenticate');
+
+    Route::get("/logout", 'logout');
 });
