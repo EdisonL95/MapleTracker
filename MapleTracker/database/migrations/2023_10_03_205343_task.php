@@ -33,7 +33,6 @@ return new class extends Migration
             $table->dropForeign(['user_id']);
             $table->dropForeign(['type_id']);
         });
-
         Schema::dropIfExists('task');
     }
 };
