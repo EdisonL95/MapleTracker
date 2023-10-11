@@ -4,8 +4,8 @@
 <div class="container">
   <div class="row justify-content-center">
       <div class="form-group col-md-4 align-center">
-        <h1>Login Page</h1>
-        <form action="/attempt_login" method="post">
+        <h1>Register Page</h1>
+        <form action="/attempt_register" method="post">
           @csrf
           <label for="item">Username: </label> <br />
           <input type="text" name="username" value="" class="form-control"/> <br />
