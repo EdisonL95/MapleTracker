@@ -1,0 +1,41 @@
+.navbar{
+    margin:65px  !important;
+    padding:20px !important;
+    border-radius: 15px;
+    width: 65%;
+}
+
+
+.navbar.navbar-expand-lg a {
+    color: black;
+}
+
+body {
+    background-color: #272836 !important;
+    color: #FFFFFF !important;
+}
+
+#landing_text{
+    font-size: 26px;
+    width: 65%;
+}
+
+#line {
+    border-top: 10px solid #DEAF69;
+    width: 65%;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+p {
+    text-align: center;
+}
+
+.nav-link:hover {
+    color: #DEAF69 !important; /* Change to your desired text color on hover */
+}
+
+.navbar .active {
+    color: #DEAF69  !important;
+}

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\CharacterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,12 @@ use App\Http\Controllers\UserAuthController;
 
 Route::get('/', function () {
     return view('home');
+});
+
+Route::controller(CharacterController::class)->group(function() {
+
+    Route::get("/characters", "displayCharactersPage")->middleware('auth');
+
 });
 
 Route::controller(UserAuthController::class)->group(function() {

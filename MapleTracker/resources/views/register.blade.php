@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center">
       <div class="form-group col-md-4 align-center">
-        <h1>Register Page</h1>
+        <h2>Register Page</h2>
         <form action="/attempt_register" method="post">
           @csrf
           <label for="item">Username: </label> <br />
