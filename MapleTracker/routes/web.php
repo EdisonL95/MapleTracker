@@ -21,7 +21,8 @@ Route::get('/', function () {
 Route::controller(CharacterController::class)->group(function() {
 
     Route::get("/characters", "displayCharactersPage")->middleware('auth');
-
+    Route::post("/attempt_create", 'createCharacter')->middleware('auth');
+    Route::post('/search_character', "searchCharacter")->middleware('auth');
 });
 
 Route::controller(UserAuthController::class)->group(function() {

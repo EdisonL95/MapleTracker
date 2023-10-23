@@ -1,8 +1,9 @@
 .navbar{
-    margin:65px  !important;
+    margin-top: 65px;
+    margin-bottom: 45px;
     padding:20px !important;
     border-radius: 15px;
-    width: 65%;
+    width: 100%;
 }
 
 
@@ -14,18 +15,27 @@ body {
     background-color: #272836 !important;
     color: #FFFFFF !important;
 }
+.modal-title {
+    color: black;
+}
+
+.modal-body{
+    background-color: #272836;
+}
 
 #landing_text{
     font-size: 26px;
-    width: 65%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 #line {
     border-top: 10px solid #DEAF69;
-    width: 65%;
     border-radius: 15px;
     margin-top: 30px;
     margin-bottom: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 p {
@@ -39,3 +49,24 @@ p {
 .navbar .active {
     color: #DEAF69  !important;
 }
+
+#characterCard{
+    background-color: #DEDEDE;
+    color:black;
+    margin-top: 20px;
+    border-radius: 15px;
+    border-bottom: 10px solid #DEAF69;
+}
+
+#characterCardText{
+    font-size: 20px;
+    text-align: left;
+    padding-bottom: 5px;
+    border-bottom: 5px solid #DEAF69;
+}
+
+.text-area {
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
