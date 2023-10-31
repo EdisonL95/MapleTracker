@@ -52,6 +52,7 @@ class UserAuthController extends Controller
         $user->password = Hash::make( $request->input("password") );
         $user->email = $request->input("email");
         $user->name = $request->input("username");
+        $user->isAdmin = false;
         $user->save();
 
         return redirect("/login");

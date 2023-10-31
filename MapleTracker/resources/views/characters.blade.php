@@ -13,35 +13,9 @@
     </div>
 </div>
 
-<div class="row" id="characterList">
-    @foreach ($characters as $character)
-    <div class="col-md-4">
-        <div class="p-3 border bg-light" id="characterCard">
-            <p id="characterCardText">{{ $character->character_name }} LV. {{ $character->level }}
-                {{ $character->class }} </p>
-            <div class="row d-flex justify-content-end">
-                <div class="col-6">
-                    <div class="text-area">Daily Quests 0/10</div>
-                </div>
-                <div class="col-6">
-                    <div class="text-area">Daily Bosses 0/10</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="text-area">Weekly Quests 0/10</div>
-                </div>
-                <div class="col-6">
-                    <div class="text-area">Weekly Bosses 0/10</div>
-                </div>
-            </div>
-            <div><button type="button" class="btn btn-dark ms-auto d-flex justify-content-end">Adjust Character</button>
-            </div>
-        </div>
-    </div>
-    @endforeach
-</div>
-<!-- Modal -->
+@include('viewcomponents.characterlist')
+
+<!-- Create Character Modal -->
 <div class="modal fade" id="characterModal" tabindex="-1" aria-labelledby="characterModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -55,7 +29,13 @@
                     <label for="item">Name: </label> <br />
                     <input type="text" name="character_name" value="" class="form-control" required /> <br />
                     <label for="item">Class: </label> <br />
-                    <input type="text" name="class" value="" class="form-control" required /> <br />
+                    <select class="form-select" name="class" required>
+                        <option value="warrior">Warrior</option>
+                        <option value="mage">Mage</option>
+                        <option value="thief">Thief</option>
+                        <option value="archer">Archer</option>
+                        <option value="pirate">Pirate</option>
+                    </select> <br />
                     <label for="item">Level: </label><br />
                     <input type="number" name="level" value="" class="form-control" required /> <br />
                     <input type="submit" value="Create Character" class="form-control" /> <br>
@@ -65,52 +45,50 @@
     </div>
 </div>
 
+<!-- Edit Character Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Character</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/attempt_edit" method="post">
+                    @csrf
+                    <label for="item">Name: </label> <br />
+                    <input type="text" name="character_name" value="" class="form-control" required /> <br />
+                    <label for="item">Class: </label> <br />
+                    <select class="form-select" name="class" required>
+                        <option value="warrior">Warrior</option>
+                        <option value="mage">Mage</option>
+                        <option value="thief">Thief</option>
+                        <option value="archer">Archer</option>
+                        <option value="pirate">Pirate</option>
+                    </select> <br />
+                    <label for="item">Level: </label><br />
+                    <input type="number" name="level" value="" class="form-control" required /> <br />
+                    <input type="submit" value="Edit Character" class="form-control" /> <br>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $('#characterSearch').on('keyup', function () {
-            var value = $('#characterSearch').val();
-            $.ajax({
-                type: "post",
-                url: "/search_character",
-                data: {
-                    searchTerm: value,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function (response) {
-                    var characterDiv = $("#characterList");
-                    characterDiv.empty();
-                    $.each(response, function (index, character) {
-                        console.log(response)
-                        var searchedCharacter = '<div class="col-md-4">' +
-                            '<div class="p-3 border bg-light" id="characterCard">' +
-                            '<p id="characterCardText">' + character
-                            .character_name + ' LV. ' + character.level + ' ' +
-                            character.class + '</p>' +
-                            '<div class="row d-flex justify-content-end">' +
-                            '<div class="col-6">' +
-                            '<div class="text-area">Daily Quests 0/10</div>' +
-                            '</div>' +
-                            '<div class="col-6">' +
-                            '<div class="text-area">Daily Bosses 0/10</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                            '<div class="col-6">' +
-                            '<div class="text-area">Weekly Quests 0/10</div>' +
-                            '</div>' +
-                            '<div class="col-6">' +
-                            '<div class="text-area">Weekly Bosses 0/10</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div><button type="button" class="btn btn-dark ms-auto d-flex justify-content-end">Adjust Character</button></div>' +
-                            '</div>' +
-                            '</div>';
-                        characterDiv.append(searchedCharacter)
-                    });
+            var value = $('#characterSearch').val().toLowerCase();
+            $(".characterCard").each(function () {
+                var id = $(this).attr("id").toLowerCase();
+                if (id.search(value) === -1){
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
                 }
             });
-        })
+        });
     });
-
 </script>
 @endsection

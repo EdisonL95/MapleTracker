@@ -65,8 +65,42 @@ p {
     border-bottom: 5px solid #DEAF69;
 }
 
+
+#taskCardText{
+    font-size: 25px;
+    padding-bottom: 5px;
+    border-bottom: 5px solid #DEAF69;
+}
+
 .text-area {
     font-size: 20px;
     margin-bottom: 20px;
     margin-top: 10px;
   }
+
+#taskdropdown{
+    background-color: #DEDEDE; 
+    border-radius: 10px;
+    color: black !important;
+    position: relative;
+}
+
+#taskList{
+    margin-top: 5px;
+}
+
+#taskButton{
+    width: 200px;
+}
+#taskDropDownTitle{
+    font-size: 25px;
+}
+#taskColumn{
+    margin-top: 5px;
+}
+#taskTable{
+    margin-top: 5px;
+    background-color: #272836;
+    border-radius: 10px;
+    color: #FFFFFF !important;
+}

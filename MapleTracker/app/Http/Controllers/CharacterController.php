@@ -42,4 +42,9 @@ class CharacterController extends Controller
                      ->get();
         return response()->json($characters);
     }
+
+    public function deleteCharacter($id) {
+        characters::where('id', $id)->delete();
+        return redirect("/characters");
+    }
 }
