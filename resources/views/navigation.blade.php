@@ -11,6 +11,7 @@
             <a href="/" class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
             <a href="/characters" class="nav-link {{ Request::is('characters') ? 'active' : '' }}">Characters</a>
             <a href="/tasks" class="nav-link {{ Request::is('tasks') ? 'active' : '' }}">Tasks</a>
+            <a href="/taskmanager" class="nav-link {{ Request::is('taskmanager') ? 'active' : '' }}">Task Manager</a>
             <a href="/logout" class="nav-link">Logout</a>
             @else
             <a href="/" class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>

@@ -24,10 +24,12 @@ Route::controller(CharacterController::class)->group(function() {
     Route::post("/attempt_create", 'createCharacter')->middleware('auth');
     Route::post('/search_character', "searchCharacter")->middleware('auth');
     Route::get('/attempt_delete/{id}', "deleteCharacter")->middleware('auth');
+    Route::post('/attempt_edit', "editCharacter")->middleware('auth');
 });
 
 Route::controller(TaskController::class)->group(function() {
     Route::get("/tasks", "displayTasksPage")->middleware('auth');
+    Route::get("/taskmanager", "displayTaskManagerPage")->middleware('auth');
 });
 
 Route::controller(UserAuthController::class)->group(function() {

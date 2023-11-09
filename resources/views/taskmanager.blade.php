@@ -14,7 +14,7 @@
 <div class="d-flex justify-content-center" id="landing_text">
     @if (Auth::check())
     <p>Click Characters to get started. The tracker will display all your tasks and characters. To create new tasks, go
-        to “Task Manager” Chat with others using Discuss in the forum!</p>
+        to “Create Tasks” Chat with others using Discuss in the forum!</p>
     @else
     <p>Register and Login to get access to a variety of features. — Track your dailies, weeklies and discuss with
         others!</p>

@@ -28,7 +28,7 @@ class UserAuthController extends Controller
  
         return back()->withErrors([
             'name' => 'The provided credentials do not match our records.',
-        ]);
+        ])->with('loginFailed', true);
     }
 
     public function displayLoginPage()

@@ -34,6 +34,15 @@ class CharacterController extends Controller
         return redirect("/characters");
     }
 
+    public function editCharacter(request $request){
+        $characters = characters::find($request->input("charId"));
+        $characters->level = $request->input("level");
+        $characters->character_name = $request->input("character_name");
+        $characters->class = $request->input("class");
+        $characters->save();
+        return redirect("/characters");
+    }
+
     public function searchCharacter(Request $request) {
         $searchTerm = $request->input('searchTerm');
         $userId = Auth::user()->id;

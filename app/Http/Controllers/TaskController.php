@@ -14,4 +14,10 @@ class TaskController extends Controller
         $characters = characters::where('user_id', $userId)->get();
         return view("tasks", ['characters' => $characters]);
     }
+    public function displayTaskManagerPage()
+    {
+        $userId = Auth::user()->id;
+        $task = task::where('user_id', $userId)->get();
+        return view("taskmanager", ['task' => $task]);
+    }
 }

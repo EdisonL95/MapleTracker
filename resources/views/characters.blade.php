@@ -56,6 +56,7 @@
             <div class="modal-body">
                 <form action="/attempt_edit" method="post">
                     @csrf
+                    <input type="hidden" id="charId" name="charId" value="" />
                     <label for="item">Name: </label> <br />
                     <input type="text" name="character_name" value="" class="form-control" required /> <br />
                     <label for="item">Class: </label> <br />
@@ -81,14 +82,19 @@
             var value = $('#characterSearch').val().toLowerCase();
             $(".characterCard").each(function () {
                 var id = $(this).attr("id").toLowerCase();
-                if (id.search(value) === -1){
+                if (id.search(value) === -1) {
                     $(this).hide();
-                }
-                else {
+                } else {
                     $(this).show();
                 }
             });
         });
+        $('#editModal').on('show.bs.modal', function (e) {
+            var charId = $(e.relatedTarget).data('char-id');
+            console.log(charId)
+            $(".modal-body #charId").val( charId );
+        });
     });
+
 </script>
 @endsection

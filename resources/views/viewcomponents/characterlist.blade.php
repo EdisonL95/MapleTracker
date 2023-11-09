@@ -24,7 +24,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Adjust Character</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" data-bs-toggle="modal" href="#editModal">Edit Character</a>
+                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal" href="" data-char-id="{{$character->id}}">Edit Character</a>
                     <a class="dropdown-item" href="/attempt_delete/{{$character->id}}">Delete Character</a>
                 </div>
             </div>

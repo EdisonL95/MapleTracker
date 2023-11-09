@@ -95,6 +95,7 @@ p {
 #taskDropDownTitle{
     font-size: 25px;
 }
+
 #taskColumn{
     margin-top: 5px;
 }
@@ -103,4 +104,9 @@ p {
     background-color: #272836;
     border-radius: 10px;
     color: #FFFFFF !important;
+}
+
+.characterTaskMenu{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
