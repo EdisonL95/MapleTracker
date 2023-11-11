@@ -47,7 +47,8 @@
         </table>
     </div>
 </div>
-@include('viewcomponents.modals')
+
+@include('viewcomponents.taskmanager_modals')
 
 <script>
     $(document).ready(function () {
@@ -82,9 +83,16 @@
                 $("#rewardInput").hide();
             }
         });
+        $("#taskTypeEdit").on("change", function () {
+            var selectedType = $("#taskTypeEdit").val();
+            if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
+                $("#rewardInputEdit").show();
+            } else {
+                $("#rewardInputEdit").hide();
+            }
+        });
         $('#editTaskModal').on('show.bs.modal', function (e) {
             var taskId = $(e.relatedTarget).data('task-id');
-            console.log(taskId)
             $(".modal-body #taskId").val(taskId);
         });
     });

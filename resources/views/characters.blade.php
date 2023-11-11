@@ -14,7 +14,7 @@
 </div>
 
 @include('viewcomponents.characterlist')
-@include('viewcomponents.modals')
+@include('viewcomponents.characters_modals')
 
 <script>
     $(document).ready(function () {

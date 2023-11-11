@@ -129,3 +129,11 @@ p {
 .characterTaskDelRow {
     cursor: pointer;
 }
+
+.characterTaskListRow:hover{
+    color: #A8FA9B;
+}
+
+.characterTaskListRow{
+    cursor: pointer;  
+}

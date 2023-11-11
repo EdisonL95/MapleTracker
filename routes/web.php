@@ -35,6 +35,7 @@ Route::controller(TaskController::class)->group(function() {
     Route::post('/attempt_edit_task', "editTask")->middleware('auth');
     Route::get('/add_character_task/{characterId}/{taskId}', "addCharacterTask")->middleware('auth');
     Route::get('/delete_character_task/{taskId}', "deleteCharacterTask")->middleware('auth');
+    Route::get('/set_task_status/{taskId}', "setTaskStatus")->middleware('auth');
 });
 
 Route::controller(UserAuthController::class)->group(function() {

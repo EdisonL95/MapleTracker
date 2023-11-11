@@ -54,13 +54,13 @@
                                     @php
                                     $task = $tasks->where('id', $character_task->task_id)->first();
                                     @endphp
-                                    <tr id = "{{$character_task->id}}">
+                                    <tr class = "characterTaskListRow" id = "{{$character_task->id}}">
                                         <td>{{ $task->description }}</td>
                                         <td>{{ $task->type }}</td>
                                         <td>{{ $task->priority }}</td>
                                         <td>{{ $task->reward }}</td>
                                         <td>{{ $task->tags }}</td>
-                                        <td> @if ($character_task->task_status == 1)
+                                        <td style="color: {{ $character_task->task_status == 1 ? '#A8FA9B' : '#FA9B9B' }}"> @if ($character_task->task_status == 1)
                                             Complete
                                             @else
                                             Incomplete

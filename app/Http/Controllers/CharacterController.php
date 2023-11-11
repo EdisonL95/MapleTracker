@@ -61,3 +61,4 @@ class CharacterController extends Controller
         return redirect("/characters");
     }
 }
+

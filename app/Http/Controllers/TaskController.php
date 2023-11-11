@@ -15,7 +15,15 @@ class TaskController extends Controller
         $characters = characters::where('user_id', $userId)->get();
         $tasks = task::where('user_id', $userId)->get();
         $character_tasks = character_task::where('user_id', $userId)->get();
-        return view("tasks", ['characters' => $characters, 'tasks' => $tasks, 'character_tasks' => $character_tasks]);
+        $income = 0;
+        foreach ($character_tasks as $character_task) {
+            foreach ($tasks as $task){
+                if ($character_task->task_id === $task->id && $character_task->task_status){
+                    $income += $task->reward;
+                }
+            }
+        }
+        return view("tasks", ['characters' => $characters, 'tasks' => $tasks, 'character_tasks' => $character_tasks, 'income' => $income]);
     }
 
     public function displayTaskManagerPage()
@@ -80,4 +88,29 @@ class TaskController extends Controller
         return redirect("/tasks");
     }
 
+    public function setTaskStatus($taskId) {
+        $character_task = character_task::find($taskId);
+        $character_task->task_status = !$character_task->task_status; // This toggles the boolean value
+        $character_task->save();
+    
+        return redirect("/tasks");
+    }
+
+    public function calculateWeeklyIncome()
+    {
+    $tasks = task::where('user_id', $userId)->get();
+    $character_tasks = character_task::where('user_id', $userId)->get();
+    $income = 0;
+    $tasks_list = $tasks->where('id', $character_task->task_id);
+    foreach ($tasks_list as $task) {
+        foreach ($character_tasks as $character_task){
+            if ($character_task->task_id == $task->id){
+                if($character_task->status == 1){
+                    $income += $task->reward;
+                }
+            }
+        }
+    }
+    return $income;
+    }
 }

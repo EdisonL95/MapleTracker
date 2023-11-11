@@ -1,31 +1,30 @@
 <div class="row" id="characterList">
     @foreach ($characters as $character)
     @php
-    $daily_bosses = 0;
-    $daily_quests = 0;
-    $weekly_bosses = 0;
-    $weekly_quests = 0;
-    $character_tasks = $character_tasks->where('character_id', $character->id);
-    foreach ($character_tasks as &$character_task) {
-        $task = $tasks->where('id', $character_task->task_id)->first();
-        if ($task) {
-            switch ($task->type) {
-                case 'Daily Boss':
-                    $daily_bosses++;
-                    break;
-                case 'Daily Quest':
-                    $daily_quests++;
-                    break;
-                case 'Weekly Boss':
-                    $weekly_bosses++;
-                    break;
-                case 'Weekly Quest':
-                    $weekly_quests++;
-                    break;
+        $daily_bosses = 0;
+        $daily_quests = 0;
+        $weekly_bosses = 0;
+        $weekly_quests = 0;
+        $tasks_list  = $character_tasks->where('character_id', $character->id);
+        foreach ($tasks_list  as $task) {
+            $task = $tasks->where('id', $task->task_id)->first();
+            if ($task) {
+                switch ($task->type) {
+                    case 'Daily Boss':
+                        $daily_bosses++;
+                        break;
+                    case 'Daily Quest':
+                        $daily_quests++;
+                        break;
+                    case 'Weekly Boss':
+                        $weekly_bosses++;
+                        break;
+                    case 'Weekly Quest':
+                        $weekly_quests++;
+                        break;
+                }
             }
         }
-    }
-
     @endphp
     <div class="col-md-4 characterCard" id="{{$character->character_name}}">
         <div class="p-3 border bg-light" id="characterCard">
