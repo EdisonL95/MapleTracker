@@ -26,8 +26,12 @@
     $(document).ready(function () {
         var charId = 0;
         $('#characterTaskListSearch').on('keyup', function () {
-            var value = $('#characterTaskListSearch').val().toLowerCase();
-            $(".characterTaskMenu").each(function () {
+            var value = $('#characterTaskListSearch').val().toLowerCase().trim();
+            if (value === "") {
+                $(".characterTaskMenu").show();
+            }
+            else {
+                $(".characterTaskMenu").each(function () {
                 var id = $(this).attr("id").toLowerCase();
                 if (id.search(value) === -1) {
                     $(this).hide();
@@ -35,6 +39,7 @@
                     $(this).show();
                 }
             });
+            }
         });
         $(".characterTaskModalRow").click(function () {
             var taskId = $(this).attr("id")
