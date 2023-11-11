@@ -5,22 +5,38 @@
         $daily_quests = 0;
         $weekly_bosses = 0;
         $weekly_quests = 0;
+        $daily_bosses_complete = 0;
+        $daily_quests_complete = 0;
+        $weekly_bosses_complete = 0;
+        $weekly_quests_complete = 0;
         $tasks_list  = $character_tasks->where('character_id', $character->id);
-        foreach ($tasks_list  as $task) {
-            $task = $tasks->where('id', $task->task_id)->first();
-            if ($task) {
-                switch ($task->type) {
+        foreach ($tasks_list as $task) {
+            $task_details = $tasks->where('id', $task->task_id)->first();
+            if ($task_details) {
+                switch ($task_details->type) {
                     case 'Daily Boss':
                         $daily_bosses++;
+                        if($task->task_status){
+                            $daily_bosses_complete++;
+                        }
                         break;
                     case 'Daily Quest':
                         $daily_quests++;
+                        if($task->task_status){
+                            $daily_quests_complete++;
+                        }
                         break;
                     case 'Weekly Boss':
                         $weekly_bosses++;
+                        if($task->task_status){
+                            $weekly_bosses_complete++;
+                        }
                         break;
                     case 'Weekly Quest':
                         $weekly_quests++;
+                        if($task->task_status){
+                            $weekly_quests_complete++;
+                        }
                         break;
                 }
             }
@@ -32,18 +48,18 @@
                 {{ $character->class }} </p>
             <div class="row d-flex justify-content-end">
                 <div class="col-6">
-                    <div class="text-area">Daily Quests 0/{{ $daily_quests }}</div>
+                    <div class="text-area">Daily Quests {{$daily_quests_complete}}/{{ $daily_quests }}</div>
                 </div>
                 <div class="col-6">
-                    <div class="text-area">Daily Bosses 0/{{ $daily_bosses }}</div>
+                    <div class="text-area">Daily Bosses {{$daily_bosses_complete}}/{{ $daily_bosses }}</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    <div class="text-area">Weekly Quests 0/{{ $weekly_quests }}</div>
+                    <div class="text-area">Weekly Quests {{$weekly_quests_complete}}/{{ $weekly_quests }}</div>
                 </div>
                 <div class="col-6">
-                    <div class="text-area">Weekly Bosses 0/{{ $weekly_bosses }}</div>
+                    <div class="text-area">Weekly Bosses {{$weekly_bosses_complete}}/{{ $weekly_bosses }}</div>
                 </div>
             </div>
             <div class="dropdown  d-flex justify-content-end">
