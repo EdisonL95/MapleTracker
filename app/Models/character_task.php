@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class character_task extends Model
 {
     use HasFactory;
     /**
@@ -13,7 +13,7 @@ class Task extends Model
     *
     * @var string
     */
-    protected $table = 'task';
+    protected $table = 'character_task';
 
     /**
      * The attributes that are mass assignable.
@@ -21,11 +21,7 @@ class Task extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
-        'description',
-        'reward',
-        'priority',
-        'tags',
+        'task_status',
     ];
 
     /**

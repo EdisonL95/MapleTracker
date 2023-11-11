@@ -96,17 +96,36 @@ p {
     font-size: 25px;
 }
 
-#taskColumn{
-    margin-top: 5px;
-}
 #taskTable{
     margin-top: 5px;
     background-color: #272836;
     border-radius: 10px;
     color: #FFFFFF !important;
 }
+#taskTableManager{
+    background-color: #FFFFFF;
+    color: black !important;
+    border-radius: 10px;
+}
 
 .characterTaskMenu{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.row {
+    margin-bottom: 5px !important;
+    margin-top: 10px !important;
+}
+
+.characterTaskDelRow:hover {color: #FA9B9B;}
+
+.characterTaskModalRow:hover {color: #A8FA9B;}
+
+.characterTaskModalRow {
+    cursor: pointer;
+}
+
+.characterTaskDelRow {
+    cursor: pointer;
 }

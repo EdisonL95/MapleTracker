@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\characters;
+use App\Models\character_task;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
@@ -11,7 +13,9 @@ class CharacterController extends Controller
     {
         $userId = Auth::user()->id;
         $characters = characters::where('user_id', $userId)->get();
-        return view("characters", ['characters' => $characters]);
+        $tasks = task::where('user_id', $userId)->get();
+        $character_tasks = character_task::where('user_id', $userId)->get();
+        return view("characters", ['characters' => $characters, 'tasks' => $tasks, 'character_tasks' => $character_tasks]);
     }
     
     public function createCharacter(Request $request)

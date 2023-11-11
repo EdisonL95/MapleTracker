@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('character_task', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('character_id');
             $table->foreign('character_id')->references('id')->on('characters')->onDelete('cascade');
             $table->unsignedBigInteger('task_id');
@@ -27,6 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('character_task', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
             $table->dropForeign(['character_id']);
             $table->dropForeign(['task_id']);
         });

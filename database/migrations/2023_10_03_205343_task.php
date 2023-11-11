@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->boolean('type');
+            $table->string('type');
             $table->string('description');
             $table->string('reward');
             $table->boolean('priority');

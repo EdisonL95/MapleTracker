@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-4" id="taskColumn">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#addTaskModal" id="taskButton">
+                                data-bs-target="#addTaskModal" id="taskButton" data-char-id="{{$character->id}}">
                                 Add task
                             </button>
                         </div>
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-4" id="taskColumn">
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#characterModal" id="taskButton">
+                                data-bs-target="#removeTaskModal" id="taskButton" data-char-id="{{$character->id}}">
                                 Remove task
                             </button>
                         </div>
@@ -45,11 +45,29 @@
                                         <th>Priority</th>
                                         <th>Reward</th>
                                         <th>Tags</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @foreach ($character_tasks as $character_task)
+                                    @if ($character_task->character_id == $character->id)
+                                    @php
+                                    $task = $tasks->where('id', $character_task->task_id)->first();
+                                    @endphp
+                                    <tr id = "{{$character_task->id}}">
+                                        <td>{{ $task->description }}</td>
+                                        <td>{{ $task->type }}</td>
+                                        <td>{{ $task->priority }}</td>
+                                        <td>{{ $task->reward }}</td>
+                                        <td>{{ $task->tags }}</td>
+                                        <td> @if ($character_task->task_status == 1)
+                                            Complete
+                                            @else
+                                            Incomplete
+                                            @endif</td>
                                     </tr>
+                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
