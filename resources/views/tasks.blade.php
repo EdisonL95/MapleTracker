@@ -63,13 +63,13 @@
                 var id = $(this).attr("id");
                 if (id == charId) {
                     $(this).show();
-                    $(this).click(function () {
+                    $(this).off('click').on('click', function () {
                         var taskId = $(this).attr("task_id")
                         var url = `/delete_character_task/${taskId}`;
                         window.location = url;
                     });
                 } else {
-                    $(this).hide();
+                    $(this).hide().off('click');
                 }
             });
         })
