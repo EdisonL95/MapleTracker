@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Console;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +12,27 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            // Update 'character_task' rows where the associated task is of type 'Daily Quest' or 'Daily Boss'
+            DB::table('character_task')
+                ->join('task', 'character_task.task_id', '=', 'task.id')
+                ->whereIn('task.type', ['Daily Quest', 'Daily Boss'])
+                ->update(['character_task.task_status' => false]);
+    
+            // Log a message to the console
+            info('Scheduled task completed successfully!');
+        })->dailyAt('19:00');
+
+        $schedule->call(function () {
+            // Update 'character_task' rows where the associated task is of type 'Daily Quest' or 'Daily Boss'
+            DB::table('character_task')
+                ->join('task', 'character_task.task_id', '=', 'task.id')
+                ->whereIn('task.type', ['Weekly Quest', 'Weekly Boss'])
+                ->update(['character_task.task_status' => false]);
+    
+            // Log a message to the console
+            info('Scheduled task completed successfully!');
+        })->weeklyOn(3, '19:00');
     }
 
     /**

@@ -29,16 +29,15 @@
             var value = $('#characterTaskListSearch').val().toLowerCase().trim();
             if (value === "") {
                 $(".characterTaskMenu").show();
-            }
-            else {
+            } else {
                 $(".characterTaskMenu").each(function () {
-                var id = $(this).attr("id").toLowerCase();
-                if (id.search(value) === -1) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
-            });
+                    var id = $(this).attr("id").toLowerCase();
+                    if (id.search(value) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
             }
         });
         $(".characterTaskModalRow").click(function () {
@@ -72,7 +71,32 @@
                     $(this).hide().off('click');
                 }
             });
-        })
+        });
+        // $('#search').on('keyup', function () {
+        //     var value = $('#search').val();
+        //     $.ajax({
+        //         type: "post",
+        //         url: "/search_term",
+        //         data: {
+        //             searchTerm: value,
+        //             _token: '{{ csrf_token() }}'
+        //         },
+        //         success: function (response) {
+        //             var tableBody = $("#response tbody");
+        //             tableBody.empty();
+        //             $.each(response, function (index, student) {
+        //                 var tableRow = "<tr>" +
+        //                     "<td>" + student.id + "</td>" +
+        //                     "<td>" + student.fname + "</td>" +
+        //                     "<td>" + student.lname + "</td>" +
+        //                     "<td>" + student.age + "</td>" +
+        //                     "<td>" + student.email + "</td>" +
+        //                     "</tr>";
+        //                 tableBody.append(tableRow)
+        //             });
+        //         }
+        //     });
+        // })
     });
 
 </script>

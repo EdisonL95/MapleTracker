@@ -37,7 +37,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12" id="taskColumn">
-                            <table class="table table-borderless" id="taskTable">
+                            <table class="table table-borderless" id="taskTable" data-char-id="{{$character->id}}">
                                 <thead>
                                     <tr>
                                         <th>Description</th>
