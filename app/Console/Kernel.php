@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
     
             // Log a message to the console
             info('Scheduled task completed successfully!');
-        })->daily();
+        })->everySecond();
 
         $schedule->call(function () {
             // Update 'character_task' rows where the associated task is of type 'Daily Quest' or 'Daily Boss'
