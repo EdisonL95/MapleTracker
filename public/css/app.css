@@ -103,6 +103,7 @@ p {
     color: #FFFFFF !important;
 }
 #taskTableManager{
+    margin-top: 5px;
     background-color: #FFFFFF;
     color: black !important;
     border-radius: 10px;
@@ -123,6 +124,10 @@ p {
 .characterTaskModalRow:hover {color: #A8FA9B;}
 
 .characterTaskModalRow {
+    cursor: pointer;
+}
+
+th {
     cursor: pointer;
 }
 

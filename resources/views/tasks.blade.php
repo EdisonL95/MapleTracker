@@ -7,7 +7,7 @@
             aria-label="Default">
     </div>
     <div class="col-md-4 ms-auto d-flex justify-content-end">
-        Timer 1
+
     </div>
 </div>
 <div class="row" id="taskList">
@@ -15,7 +15,6 @@
         Current Weekly Income: {{ $income }} mesos
     </div>
     <div class="col-md-4 ms-auto d-flex justify-content-end">
-        Timer 2
     </div>
 </div>
 @include('viewcomponents.tasklist')
@@ -53,9 +52,19 @@
         $('#addTaskModal').on('show.bs.modal', function (e) {
             charId = $(e.relatedTarget).data('char-id');
         });
+
+        $('.characterTaskMenu').on('show.bs.dropdown', function (e) {
+            $('.characterTaskMenu').not(this).find('.dropdown-menu').removeClass('show');
+            console.log("click")
+            $('.characterTaskSearch').val('');
+            $('.taskFilter').val('None');
+            $('.characterTaskSearch').trigger('keyup');
+        });
+
         $('.characterTaskMenu').click(function (e) {
             e.stopPropagation();
         });
+
         $('#removeTaskModal').on('show.bs.modal', function (e) {
             charId = $(e.relatedTarget).data('char-id');
             $(".characterTaskDelRow").each(function () {
@@ -72,31 +81,82 @@
                 }
             });
         });
-        // $('#search').on('keyup', function () {
-        //     var value = $('#search').val();
-        //     $.ajax({
-        //         type: "post",
-        //         url: "/search_term",
-        //         data: {
-        //             searchTerm: value,
-        //             _token: '{{ csrf_token() }}'
-        //         },
-        //         success: function (response) {
-        //             var tableBody = $("#response tbody");
-        //             tableBody.empty();
-        //             $.each(response, function (index, student) {
-        //                 var tableRow = "<tr>" +
-        //                     "<td>" + student.id + "</td>" +
-        //                     "<td>" + student.fname + "</td>" +
-        //                     "<td>" + student.lname + "</td>" +
-        //                     "<td>" + student.age + "</td>" +
-        //                     "<td>" + student.email + "</td>" +
-        //                     "</tr>";
-        //                 tableBody.append(tableRow)
-        //             });
-        //         }
-        //     });
-        // })
+        // Onclick header sort asc/desc taken from https://stackoverflow.com/questions/3160277/jquery-table-sort
+        $('th').click(function () {
+            var table = $(this).parents('table').eq(0)
+            var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+            this.asc = !this.asc
+            if (!this.asc) {
+                rows = rows.reverse()
+            }
+            for (var i = 0; i < rows.length; i++) {
+                table.append(rows[i])
+            }
+        })
+
+        function comparer(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index),
+                    valB = getCellValue(b, index)
+                return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(
+                    valB)
+            }
+        }
+
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).text()
+        }
+        /////////////
+        $('.characterTaskSearch').on('keyup', function () {
+            var value = $('.characterTaskSearch').val().toLowerCase().trim();
+            if (value === "") {
+                $(".characterTaskListRow").show();
+            } else {
+                $(".characterTaskListRow").each(function () {
+                    var found = false;
+                    $(this).find(".searchterm").each(function () {
+                        var text = $(this).text().toLowerCase();
+                        if (text.includes(value)) {
+                            found = true;
+                        }
+                    });
+                    if (found) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+        });
+
+        $('.taskFilter').change(function () {
+            var selectedValue = $(this).val().toLowerCase();
+            $('.characterTaskListRow').show();
+            if (selectedValue === "none") {
+                $(".characterTaskListRow").show();
+            } else {
+                $(".characterTaskListRow").each(function () {
+                    var found = false;
+                    $(this).find(".filterterm").each(function () {
+                        var text = $(this).text().toLowerCase().trim();
+                        if (selectedValue === "complete"){
+                            console.log(text)
+                            if (text === "complete") {
+                            found = true;
+                            }
+                        }
+                        else if (text.includes(selectedValue)) {
+                            found = true;
+                        }
+                    });
+                    if (found) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+        });
     });
 
 </script>

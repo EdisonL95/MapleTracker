@@ -27,11 +27,18 @@
                             </button>
                         </div>
                         <div class="col-md-4 ms-auto d-flex justify-content-end" id="taskColumn">
-                            <input type="text" class="form-control" id="taskFilter" placeholder="Test Filter"
-                                aria-label="Default">
+                            <select class="form-select taskFilter">
+                                <option value="None">Show All</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Daily">Daily</option>
+                                <option value="High">High Priority</option>
+                                <option value="Normal">Normal Priority</option>
+                                <option value="Complete">Complete</option>
+                                <option value="Incomplete">Incomplete</option>
+                            </select>
                         </div>
                         <div class="col-md-4 ms-auto d-flex justify-content-end" id="taskColumn">
-                            <input type="text" class="form-control" id="taskSearch" placeholder="Test Search"
+                            <input type="text" class="form-control characterTaskSearch" placeholder="Test Search"
                                 aria-label="Default">
                         </div>
                     </div>
@@ -54,13 +61,15 @@
                                     @php
                                     $task = $tasks->where('id', $character_task->task_id)->first();
                                     @endphp
-                                    <tr class = "characterTaskListRow" id = "{{$character_task->id}}">
-                                        <td>{{ $task->description }}</td>
-                                        <td>{{ $task->type }}</td>
-                                        <td>{{ $task->priority }}</td>
-                                        <td>{{ $task->reward }}</td>
-                                        <td>{{ $task->tags }}</td>
-                                        <td style="color: {{ $character_task->task_status == 1 ? '#A8FA9B' : '#FA9B9B' }}"> @if ($character_task->task_status == 1)
+                                    <tr class="characterTaskListRow" id="{{$character_task->id}}">
+                                        <td class="searchterm">{{ $task->description }}</td>
+                                        <td class="filterterm">{{ $task->type }}</td>
+                                        <td class="filterterm" >{{ $task->priority ? 'High' : 'Normal' }}</td>
+                                        <td >{{ $task->reward }}</td>
+                                        <td class="searchterm">{{ $task->tags }}</td>
+                                        <td class="filterterm"
+                                            style="color: {{ $character_task->task_status == 1 ? '#A8FA9B' : '#FA9B9B' }}">
+                                            @if ($character_task->task_status == 1)
                                             Complete
                                             @else
                                             Incomplete
