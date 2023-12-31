@@ -142,3 +142,8 @@ th {
 .characterTaskListRow{
     cursor: pointer;  
 }
+
+.card-text {
+    text-align: left;
+    color: black;
+}

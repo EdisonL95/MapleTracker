@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ForumController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,4 +50,9 @@ Route::controller(UserAuthController::class)->group(function() {
     Route::post("/attempt_login", 'authenticate');
 
     Route::get("/logout", 'logout');
+});
+
+Route::controller(ForumController::class)->group(function() {
+    Route::get("/forum", "displayForum")->middleware('auth');
+    Route::post("/attempt_create_thread", "createThread")->middleware('auth');
 });

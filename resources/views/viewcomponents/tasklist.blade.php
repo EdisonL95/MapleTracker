@@ -67,8 +67,7 @@
                                         <td class="filterterm" >{{ $task->priority ? 'High' : 'Normal' }}</td>
                                         <td >{{ $task->reward }}</td>
                                         <td class="searchterm">{{ $task->tags }}</td>
-                                        <td class="filterterm"
-                                            style="color: {{ $character_task->task_status == 1 ? '#A8FA9B' : '#FA9B9B' }}">
+                                        <td class="filterterm"style="color: {{ $character_task->task_status == 1 ? '#A8FA9B' : '#FA9B9B' }}">
                                             @if ($character_task->task_status == 1)
                                             Complete
                                             @else

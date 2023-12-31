@@ -98,20 +98,22 @@ class TaskController extends Controller
 
     public function calculateWeeklyIncome()
     {
-    $tasks = task::where('user_id', $userId)->get();
-    $character_tasks = character_task::where('user_id', $userId)->get();
-    $income = 0;
-    $tasks_list = $tasks->where('id', $character_task->task_id);
-    foreach ($tasks_list as $task) {
-        foreach ($character_tasks as $character_task){
-            if ($character_task->task_id == $task->id){
-                if($character_task->status == 1){
-                    $income += $task->reward;
+        $userId = Auth::user()->id;
+        
+        $tasks = task::where('user_id', $userId)->get();
+        $character_tasks = character_task::where('user_id', $userId)->get();
+        $income = 0;
+        $tasks_list = $tasks->where('id', $character_tasks->task_id);
+        foreach ($tasks_list as $task) {
+            foreach ($character_tasks as $character_task){
+                if ($character_task->task_id == $task->id){
+                    if($character_task->status == 1){
+                        $income += $task->reward;
+                    }
                 }
             }
         }
-    }
-    return $income;
+        return $income;
     }
 
 }

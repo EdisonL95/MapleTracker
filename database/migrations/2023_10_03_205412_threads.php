@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('title');
             $table->string('creater_name');
             $table->date('date_posted');
             $table->boolean('is_announcement');
