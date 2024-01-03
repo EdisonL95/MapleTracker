@@ -48,6 +48,14 @@ class UserAuthController extends Controller
 
     public function registerUser(Request $request)
     {
+        $emailCheck = User::where('email', $request->input("email"))->first();
+        $nameCheck = User::where('name', $request->input("username"))->first();
+        if ($emailCheck){
+            return redirect("/register")->withErrors(['email' => 'The email is already registered.']);
+        }
+        if ($nameCheck){
+            return redirect("/register")->withErrors(['name' => 'The name is already registered.']);
+        }
         $user = new User;
         $user->password = Hash::make( $request->input("password") );
         $user->email = $request->input("email");

@@ -54,5 +54,9 @@ Route::controller(UserAuthController::class)->group(function() {
 
 Route::controller(ForumController::class)->group(function() {
     Route::get("/forum", "displayForum")->middleware('auth');
+    Route::get("/post/{id}", "displayThread")->middleware('auth');
     Route::post("/attempt_create_thread", "createThread")->middleware('auth');
+    Route::post("/attempt_create_post/{id}", "createPost")->middleware('auth');
+    Route::get("/attempt_delete_thread/{id}", "deleteThread")->middleware('auth');
+    Route::get("/attempt_delete_post/{id}", "deletePost")->middleware('auth');
 });

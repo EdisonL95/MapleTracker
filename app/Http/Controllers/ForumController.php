@@ -15,25 +15,54 @@ class ForumController extends Controller
         return view("forum", ['threads' => $threads]);
     }
 
+    public function displayThread($threadId)
+    {
+        $thread = Threads::where('id', $threadId)->first();
+        $posts = Post::where('thread_id', $threadId)->get();
+        return view("thread", ['posts' => $posts, 'thread' => $thread]);
+    }
+
     public function createThread(Request $request)
     {
         // Get the currently logged-in user
         $user = Auth::user();
 
-        // Create a new character
         $thread = new Threads;
         $thread->title = $request->input("title");
         $thread->creater_name = $user->name;
         $thread->date_posted = now();
         $thread->contents = $request->input("contents");
         $thread->is_announcement = $request->has("announcementcheck");
-        // Associate the character with the user
         $thread->user_id = $user->id;
-
-        // Save the character
         $thread->save();
-
         return redirect("/forum");
     }
 
+
+    public function createPost(Request $request, $threadId)
+    {
+        // Get the currently logged-in user
+        $user = Auth::user();
+        $post = new Post;
+        $post->post_creator = $user->name;
+        $post->contents = $request->input("contents");
+        $post->date_posted = now();
+        $post->thread_id = $threadId;
+        $post->user_id = $user->id;
+        $post->save();
+        return redirect("/post/$threadId");
+    }
+
+
+    public function deleteThread($threadId) {
+        Threads::where('id', $threadId)->delete();
+        return redirect("/forum");
+    }
+
+    public function deletePost($postId) {
+        $post = Post::find($postId);
+        $threadId = $post->thread_id;
+        $post->delete();
+        return redirect("/post/$threadId");
+    }
 }

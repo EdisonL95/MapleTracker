@@ -38,6 +38,13 @@ body {
     margin-right: 20%;
 }
 
+#lineForum {
+    border-top: 10px solid #DEAF69;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 p {
     text-align: center;
 }
@@ -143,7 +150,30 @@ th {
     cursor: pointer;  
 }
 
+.card-title {
+    text-decoration: none !important;
+    text-align: left  !important;
+    color: black !important;
+}
+
+
 .card-text {
     text-align: left;
     color: black;
+}
+
+.btn-success{
+    color: black !important;
+    border-color: #A8FA9B !important;
+    background-color: #A8FA9B  !important; 
+}
+
+.btn-danger{
+    color: black !important;
+    border-color: #FA9B9B !important;
+    background-color: #FA9B9B  !important; 
+}
+
+.card{
+    margin-bottom: 5px;
 }

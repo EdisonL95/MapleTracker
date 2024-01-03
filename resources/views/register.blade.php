@@ -4,6 +4,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="form-group col-md-4 align-center">
+            @if($errors->has('name'))
+            <div class="alert alert-danger">
+                {{ $errors->first('name') }}
+            </div>
+            @endif
+            @if($errors->has('email'))
+            <div class="alert alert-danger">
+                {{ $errors->first('email') }}
+            </div>
+            @endif
             <h2>Register Page</h2>
             <form action="/attempt_register" method="post">
                 @csrf
