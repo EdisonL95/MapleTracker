@@ -181,3 +181,8 @@ th {
 p.small.text-muted{
     display: none;
 }
+
+li {
+    color: black;
+    list-style: none;
+}

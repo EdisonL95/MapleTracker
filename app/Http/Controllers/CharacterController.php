@@ -15,7 +15,11 @@ class CharacterController extends Controller
         $characters = characters::where('user_id', $userId)->get();
         $tasks = task::where('user_id', $userId)->get();
         $character_tasks = character_task::where('user_id', $userId)->get();
-        return view("characters", ['characters' => $characters, 'tasks' => $tasks, 'character_tasks' => $character_tasks]);
+        return view("characters")->with([
+            'characters' => $characters,
+            'tasks' => $tasks,
+            'character_tasks' => $character_tasks,
+        ]);
     }
     
     public function createCharacter(Request $request)

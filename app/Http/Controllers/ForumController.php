@@ -18,8 +18,8 @@ class ForumController extends Controller
     public function displayThread($threadId)
     {
         $thread = Threads::where('id', $threadId)->first();
-        $posts = Post::where('thread_id', $threadId)->paginate(10);;
-        return view("thread", ['posts' => $posts, 'thread' => $thread]);
+        $posts = Post::where('thread_id', $threadId)->paginate(10);
+        return view("thread")->with(['posts' => $posts, 'thread' => $thread]);
     }
 
     public function createThread(Request $request)

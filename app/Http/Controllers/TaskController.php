@@ -30,7 +30,7 @@ class TaskController extends Controller
     {
         $userId = Auth::user()->id;
         $tasks = task::where('user_id', $userId)->get();
-        return view("taskmanager", ['tasks' => $tasks]);
+        return view("taskmanager")->with(['tasks' => $tasks]);
     }
 
     public function createTask(Request $request)

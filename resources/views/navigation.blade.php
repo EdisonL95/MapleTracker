@@ -13,6 +13,9 @@
             <a href="/tasks" class="nav-link {{ Request::is('tasks') ? 'active' : '' }}">Tasks</a>
             <a href="/taskmanager" class="nav-link {{ Request::is('taskmanager') ? 'active' : '' }}">Task Manager</a>
             <a href="/forum" class="nav-link {{ Request::is('forum') ? 'active' : '' }}">Forum</a>
+                @if ( Auth::user()->isAdmin)
+                <a href="/admin" class="nav-link {{ Request::is('admin') ? 'active' : '' }}">Admin Page</a>
+                @endif
             <a href="/logout" class="nav-link">Logout</a>
             @else
             <a href="/" class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>

@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/attempt_create_task" method="post">
+                <form action="/attempt_add_base" method="post">
                     @csrf
                     <label for="item">Name: </label> <br />
                     <input type="text" name="task_name" value="" class="form-control" required /> <br />
@@ -44,7 +44,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/attempt_edit_task" method="post">
+                <form action="/attempt_edit_base" method="post">
                     @csrf
                     <input type="hidden" id="taskId" name="taskId" value="" />
                     <label for="item">Name: </label> <br />

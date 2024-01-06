@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
  
 use App\Models\User;
+use App\Models\Task;
+use App\Models\base_collection;
 use Illuminate\Support\Facades\Hash;
 
 class UserAuthController extends Controller
@@ -63,6 +65,18 @@ class UserAuthController extends Controller
         $user->isAdmin = false;
         $user->save();
 
+        $baseCollectionData = base_collection::all();
+        foreach ($baseCollectionData as $baseItem) {
+            $task = new Task;
+            $task->user_id = $user->id; // Associate the task with the registered user
+            $task->type = $baseItem->type;
+            $task->description = $baseItem->description;
+            $task->reward = $baseItem->reward;
+            $task->priority = $baseItem->priority;
+            $task->tags = $baseItem->tags;
+            $task->save();
+        }
+        
         return redirect("/login");
     }
 

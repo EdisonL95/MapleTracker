@@ -130,7 +130,6 @@
         }
         $('#taskFilter').change(function () {
             var selectedValue = $(this).val().toLowerCase();
-            $('.characterTaskListRow').show();
             if (selectedValue === "none") {
                 $(".taskManagerTableRow").show();
             } else {

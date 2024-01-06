@@ -5,6 +5,8 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\AdminController;
+use App\Models\site_data;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +19,10 @@ use App\Http\Controllers\ForumController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $siteData = site_data::first();
+
+    // Pass the data to the 'home' view
+    return view('home', ['siteData' => $siteData]);
 });
 
 Route::controller(CharacterController::class)->group(function() {
@@ -59,4 +64,12 @@ Route::controller(ForumController::class)->group(function() {
     Route::post("/attempt_create_post/{id}", "createPost")->middleware('auth');
     Route::get("/attempt_delete_thread/{id}", "deleteThread")->middleware('auth');
     Route::get("/attempt_delete_post/{id}", "deletePost")->middleware('auth');
+});
+
+Route::controller(AdminController::class)->group(function() {
+    Route::get("/admin", "displayAdmin")->middleware('auth');
+    Route::post("/attempt_change_landing", "changeLandingText")->middleware('auth');
+    Route::post("/attempt_add_base", "createBase")->middleware('auth');
+    Route::get("/attempt_delete_base/{id}", "deleteBase")->middleware('auth');
+    Route::post('/attempt_edit_base', "editBase")->middleware('auth');
 });
