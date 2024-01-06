@@ -55,5 +55,9 @@
         @endif
         @endforeach
     </div>
+    <div class="d-flex justify-content-center">
+    {{$threads->links("pagination::bootstrap-5")}}
+    </div>
+
 </div>
 @endsection

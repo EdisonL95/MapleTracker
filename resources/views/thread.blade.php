@@ -48,5 +48,8 @@
         <p>This thread is empty, add a post!</p>
     @endif
     </div>
+    <div class="d-flex justify-content-center">
+    {{$posts->links("pagination::bootstrap-5")}}
+    </div>
 </div>
 @endsection

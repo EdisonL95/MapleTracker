@@ -177,3 +177,7 @@ th {
 .card{
     margin-bottom: 5px;
 }
+
+p.small.text-muted{
+    display: none;
+}

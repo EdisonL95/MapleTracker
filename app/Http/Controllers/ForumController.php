@@ -11,14 +11,14 @@ class ForumController extends Controller
 {
     public function displayForum()
     {
-        $threads = Threads::all();
+        $threads = Threads::paginate(5);;
         return view("forum", ['threads' => $threads]);
     }
 
     public function displayThread($threadId)
     {
         $thread = Threads::where('id', $threadId)->first();
-        $posts = Post::where('thread_id', $threadId)->get();
+        $posts = Post::where('thread_id', $threadId)->paginate(10);;
         return view("thread", ['posts' => $posts, 'thread' => $thread]);
     }
 
