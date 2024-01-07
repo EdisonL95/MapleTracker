@@ -23,7 +23,7 @@ Route::get('/', function () {
 
     // Pass the data to the 'home' view
     return view('home', ['siteData' => $siteData]);
-});
+})->name('home');
 
 Route::controller(CharacterController::class)->group(function() {
     Route::get("/characters", "displayCharactersPage")->middleware('auth');
@@ -63,13 +63,14 @@ Route::controller(ForumController::class)->group(function() {
     Route::post("/attempt_create_thread", "createThread")->middleware('auth');
     Route::post("/attempt_create_post/{id}", "createPost")->middleware('auth');
     Route::get("/attempt_delete_thread/{id}", "deleteThread")->middleware('auth');
+    Route::get("/attempt_set_announcement/{id}", "setAnnouncement")->middleware('auth', 'admin');
     Route::get("/attempt_delete_post/{id}", "deletePost")->middleware('auth');
 });
 
 Route::controller(AdminController::class)->group(function() {
-    Route::get("/admin", "displayAdmin")->middleware('auth');
-    Route::post("/attempt_change_landing", "changeLandingText")->middleware('auth');
-    Route::post("/attempt_add_base", "createBase")->middleware('auth');
-    Route::get("/attempt_delete_base/{id}", "deleteBase")->middleware('auth');
-    Route::post('/attempt_edit_base', "editBase")->middleware('auth');
+    Route::get("/admin", "displayAdmin")->middleware('auth', 'admin');
+    Route::post("/attempt_change_landing", "changeLandingText")->middleware('auth', 'admin');
+    Route::post("/attempt_add_base", "createBase")->middleware('auth', 'admin');
+    Route::get("/attempt_delete_base/{id}", "deleteBase")->middleware('auth', 'admin');
+    Route::post('/attempt_edit_base', "editBase")->middleware('auth', 'admin');
 });

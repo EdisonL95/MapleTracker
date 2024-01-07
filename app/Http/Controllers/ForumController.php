@@ -39,9 +39,21 @@ class ForumController extends Controller
     }
 
 
+    public function setAnnouncement($threadId)
+    {
+        $thread = Threads::find($threadId);
+        if($thread->is_announcement == 1){
+            $thread->is_announcement = 0;
+        }
+        else {
+            $thread->is_announcement = 1;
+        }
+        $thread->save();
+        return redirect("/forum");
+    }
+
     public function createPost(Request $request, $threadId)
     {
-        // Get the currently logged-in user
         $user = Auth::user();
         $post = new Post;
         $post->post_creator = $user->name;
@@ -55,14 +67,21 @@ class ForumController extends Controller
 
 
     public function deleteThread($threadId) {
-        Threads::where('id', $threadId)->delete();
-        return redirect("/forum");
+        $user = Auth::user();
+        $thread = Threads::find($threadId);
+        if ($user->id == $thread->user_id || $user->isAdmin == 1){
+            $thread->delete();
+        }
+        return redirect("/forum")->withErrors(['msg' => 'The Message']);;
     }
 
     public function deletePost($postId) {
+        $user = Auth::user();
         $post = Post::find($postId);
         $threadId = $post->thread_id;
-        $post->delete();
+        if ($user->id == $post->user_id || $user->isAdmin == 1){
+            $post->delete();
+        }
         return redirect("/post/$threadId");
     }
 }

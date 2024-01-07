@@ -81,6 +81,7 @@
                 }
             });
         });
+        
         // Onclick header sort asc/desc taken from https://stackoverflow.com/questions/3160277/jquery-table-sort
         $('th').click(function () {
             var table = $(this).parents('table').eq(0)

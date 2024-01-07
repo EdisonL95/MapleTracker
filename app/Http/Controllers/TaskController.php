@@ -35,10 +35,8 @@ class TaskController extends Controller
 
     public function createTask(Request $request)
     {
-        // Get the currently logged-in user
         $user = Auth::user();
 
-        // Create a new character
         $task = new task;
         $task->description = $request->input("task_name");
         $task->reward = $request->input("reward") ?? 00;
@@ -46,10 +44,8 @@ class TaskController extends Controller
         $task->type = $request->input("type");
         $task->priority = $request->has("priority");
         
-        // Associate the character with the user
         $task->user_id = $user->id;
 
-        // Save the character
         $task->save();
 
         return redirect("/taskmanager");
@@ -67,32 +63,47 @@ class TaskController extends Controller
     }
 
     public function deleteTask($id) {
-        task::where('id', $id)->delete();
+        $user = Auth::user();
+        $task = Task::find($id);
+        if ($user->id == $task->user_id || $user->isAdmin == 1){
+            $task->delete();
+        }
         return redirect("/taskmanager");
     }
 
     public function deleteCharacterTask($taskId) {
-        character_task::where('id', $taskId)->delete();
+        $user = Auth::user();
+        $character_task = character_task::find($taskId);
+        if ($user->id == $character_task->user_id){
+            $character_task->delete();
+        }
         return redirect("/tasks");
     }
 
     public function addCharacterTask($characterId, $taskId)
     {
         $user = Auth::user();
-        $character_task = new character_task;
-        $character_task->user_id = $user->id;
-        $character_task->character_id = $characterId;
-        $character_task->task_id = $taskId;
-        $character_task->task_status = 0;
-        $character_task->save();
+        $character = characters::find($characterId);
+        $task = Task::find($taskId);
+        if ($user->id == $character->user_id && $user->id == $task->user_id){
+            $character_task = new character_task;
+            $character_task->user_id = $user->id;
+            $character_task->character_id = $characterId;
+            $character_task->task_id = $taskId;
+            $character_task->task_status = 0;
+            $character_task->save();
+        }
+
         return redirect("/tasks");
     }
 
     public function setTaskStatus($taskId) {
+        $user = Auth::user();
         $character_task = character_task::find($taskId);
-        $character_task->task_status = !$character_task->task_status; // This toggles the boolean value
-        $character_task->save();
-    
+        if ($user->id == $character_task->user_id){
+            $character_task->task_status = !$character_task->task_status;
+            $character_task->save(); 
+        }
         return redirect("/tasks");
     }
 

@@ -61,7 +61,11 @@ class CharacterController extends Controller
     }
 
     public function deleteCharacter($id) {
-        characters::where('id', $id)->delete();
+        $user = Auth::user();
+        $character = Characters::find($id);
+        if ($user->id == $character->user_id){
+            $character->delete();
+        }
         return redirect("/characters");
     }
 }
