@@ -47,7 +47,7 @@
         <h1>Threads</h1>
         @foreach ($threads as $thread)
         @if (!$thread->is_announcement)
-        <div class="card">
+        <div class="card" id="{{$thread->title}}">
             <div class="card-body">
                 <h2 class="card-title">
                     <a href="/post/{{$thread->id}}" style="text-decoration: none;">{{ $thread->title }}</a>
