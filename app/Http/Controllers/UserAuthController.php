@@ -25,8 +25,7 @@ class UserAuthController extends Controller
  
         if (empty($credentials['name']) || empty($credentials['password'])) {
             return redirect("/login")->withErrors([
-                'name' => 'Username is required.',
-                'password' => 'Password is required.',
+                'name' => 'Username/Password is required.',
             ]);
         }
 
