@@ -65,10 +65,11 @@ class UserAuthController extends Controller
         $user->isAdmin = false;
         $user->save();
 
+        // This part of the registration gets all the base collection tasks and creates tasks associated with them for the new user
         $baseCollectionData = base_collection::all();
         foreach ($baseCollectionData as $baseItem) {
             $task = new Task;
-            $task->user_id = $user->id; // Associate the task with the registered user
+            $task->user_id = $user->id; 
             $task->type = $baseItem->type;
             $task->description = $baseItem->description;
             $task->reward = $baseItem->reward;

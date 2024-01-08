@@ -2,6 +2,10 @@
 
 @section("content")
 <div class="row">
+<div class="col-md-4">
+        <input type="text" class="form-control" id="threadSearch" placeholder="Search for thread"
+            aria-label="Default">
+    </div>
     <div class="col-md-4">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#forumModal">
             Create a Thread
@@ -14,7 +18,7 @@
         <h1>Announcements</h1>
         @foreach ($threads as $thread)
         @if ($thread->is_announcement)
-        <div class="card">
+        <div class="card" id="{{$thread->title}}">
             <div class="card-body">
                 <h2 class="card-title">
                     <a href="/post/{{$thread->id}}" style="text-decoration: none;">{{ $thread->title }}</a>
@@ -70,4 +74,26 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function () {
+        // Thread search, used to search threads by title
+        $('#threadSearch').on('keyup', function () {
+            var value = $('#threadSearch').val().toLowerCase().trim();
+            console.log(value)
+            if (value === "") {
+                $(".card").show();
+            }
+            else{
+                $(".card").each(function () {
+                var id = $(this).attr("id").toLowerCase();
+                if (id.search(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+            }
+        });
+   });
+</script>
 @endsection

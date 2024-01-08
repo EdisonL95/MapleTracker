@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    // Display the tasks page with the characters, their tasks, income, based on the user id of the currently logged user
     public function displayTasksPage()
     {
         $userId = Auth::user()->id;
@@ -26,6 +27,7 @@ class TaskController extends Controller
         return view("tasks", ['characters' => $characters, 'tasks' => $tasks, 'character_tasks' => $character_tasks, 'income' => $income]);
     }
 
+    // Display the task manager page with the tasks associated with the current user
     public function displayTaskManagerPage()
     {
         $userId = Auth::user()->id;
@@ -33,6 +35,7 @@ class TaskController extends Controller
         return view("taskmanager")->with(['tasks' => $tasks]);
     }
 
+    // Create a task with the input data
     public function createTask(Request $request)
     {
         $user = Auth::user();
@@ -51,6 +54,7 @@ class TaskController extends Controller
         return redirect("/taskmanager");
     }
 
+    // Edit a task based on the id provided
     public function editTask(request $request){
         $task = task::find($request->input("taskId"));
         $task->description = $request->input("task_name");
@@ -62,6 +66,7 @@ class TaskController extends Controller
         return redirect("/taskmanager");
     }
 
+    // Delete a task based on id provided
     public function deleteTask($id) {
         $user = Auth::user();
         $task = Task::find($id);
@@ -71,6 +76,7 @@ class TaskController extends Controller
         return redirect("/taskmanager");
     }
 
+    // Delete a task associated with a character based on id provided
     public function deleteCharacterTask($taskId) {
         $user = Auth::user();
         $character_task = character_task::find($taskId);
@@ -80,6 +86,7 @@ class TaskController extends Controller
         return redirect("/tasks");
     }
 
+    // Add a task to a character based on the character id and task id provided
     public function addCharacterTask($characterId, $taskId)
     {
         $user = Auth::user();
@@ -97,6 +104,7 @@ class TaskController extends Controller
         return redirect("/tasks");
     }
 
+    // Set the status of a task, incomplete or complete
     public function setTaskStatus($taskId) {
         $user = Auth::user();
         $character_task = character_task::find($taskId);
@@ -107,6 +115,7 @@ class TaskController extends Controller
         return redirect("/tasks");
     }
 
+    // Calculate the weekly income of the user
     public function calculateWeeklyIncome()
     {
         $userId = Auth::user()->id;

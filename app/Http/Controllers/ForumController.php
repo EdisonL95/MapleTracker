@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
+    // Display the forum, paginate used to create pages of 5 threads when receiving the table data
     public function displayForum()
     {
         $threads = Threads::paginate(5);;
         return view("forum", ['threads' => $threads]);
     }
 
+    // Display the thread with posts, paginate used to create pages of 10 posts when receiving table data
     public function displayThread($threadId)
     {
         $thread = Threads::where('id', $threadId)->first();
@@ -22,9 +24,9 @@ class ForumController extends Controller
         return view("thread")->with(['posts' => $posts, 'thread' => $thread]);
     }
 
+    // Create a thread given the input data
     public function createThread(Request $request)
     {
-        // Get the currently logged-in user
         $user = Auth::user();
 
         $thread = new Threads;
@@ -38,7 +40,7 @@ class ForumController extends Controller
         return redirect("/forum");
     }
 
-
+    // set a thread to announcement, un set if it is already one
     public function setAnnouncement($threadId)
     {
         $thread = Threads::find($threadId);
@@ -52,6 +54,7 @@ class ForumController extends Controller
         return redirect("/forum");
     }
 
+    // Create a post in a thread given input requests
     public function createPost(Request $request, $threadId)
     {
         $user = Auth::user();
@@ -66,15 +69,17 @@ class ForumController extends Controller
     }
 
 
+    // Delete a thread based on the threadid passed in
     public function deleteThread($threadId) {
         $user = Auth::user();
         $thread = Threads::find($threadId);
         if ($user->id == $thread->user_id || $user->isAdmin == 1){
             $thread->delete();
         }
-        return redirect("/forum")->withErrors(['msg' => 'The Message']);;
+        return redirect("/forum");
     }
 
+    // Delete a post given the post id
     public function deletePost($postId) {
         $user = Auth::user();
         $post = Post::find($postId);

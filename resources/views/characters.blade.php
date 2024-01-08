@@ -18,6 +18,7 @@
 
 <script>
     $(document).ready(function () {
+        // Character search, used to search tasks by name in the character menu
         $('#characterSearch').on('keyup', function () {
             var value = $('#characterSearch').val().toLowerCase().trim();
             console.log(value)
@@ -35,6 +36,8 @@
             });
             }
         });
+
+        // Sets the edit character modal hidden id to the current id to be used for editing a specific character
         $('#editCharacterModal').on('show.bs.modal', function (e) {
             var charId = $(e.relatedTarget).data('char-id');
             $(".modal-body #charId").val( charId );

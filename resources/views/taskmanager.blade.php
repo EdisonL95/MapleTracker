@@ -61,6 +61,8 @@
 
 <script>
     $(document).ready(function () {
+        
+        // Task manager search, used to search tasks by name/tag in the task manager
         $('#taskManagerSearch').on('keyup', function () {
             var value = $('#taskManagerSearch').val().toLowerCase().trim();
             if (value === "") {
@@ -83,26 +85,36 @@
                 });
             }
         });
+
+        // Used for the task creation modal, makes it so that the reward input is hidden and emptied on switch.
         $("#taskType").on("change", function () {
             var selectedType = $("#taskType").val();
             if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
                 $("#rewardInput").show();
             } else {
+                $("#rewardInput").val('');
                 $("#rewardInput").hide();
             }
         });
+
+        // Used for the task edit modal, makes it so that the reward input is hidden and emptied on switch.
         $("#taskTypeEdit").on("change", function () {
             var selectedType = $("#taskTypeEdit").val();
             if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
                 $("#rewardInputEdit").show();
             } else {
+                $("#rewardInputEdit").val('');
                 $("#rewardInputEdit").hide();
             }
         });
+
+
+        // Used for the task edit modal, sets the id of the modal to the current taskid to be used for editing the specific field.
         $('#editTaskModal').on('show.bs.modal', function (e) {
             var taskId = $(e.relatedTarget).data('task-id');
             $(".modal-body #taskId").val(taskId);
         });
+
         // Onclick header sort asc/desc taken from https://stackoverflow.com/questions/3160277/jquery-table-sort
         $('th').click(function () {
             var table = $(this).parents('table').eq(0)
@@ -128,6 +140,8 @@
         function getCellValue(row, index) {
             return $(row).children('td').eq(index).text()
         }
+
+        // Used for filtering tasks by the filter term.
         $('#taskFilter').change(function () {
             var selectedValue = $(this).val().toLowerCase();
             if (selectedValue === "none") {

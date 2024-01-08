@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 
 class CharacterController extends Controller
 {
+    // Function used to display the character page, gets all characters associated with the user id and returns them.
     public function displayCharactersPage()
     {
         $userId = Auth::user()->id;
         $characters = characters::where('user_id', $userId)->get();
+        // Required to get tasks for the daily/weekly counters on the character cards
         $tasks = task::where('user_id', $userId)->get();
         $character_tasks = character_task::where('user_id', $userId)->get();
         return view("characters")->with([
@@ -22,26 +24,24 @@ class CharacterController extends Controller
         ]);
     }
     
+    // Function used to create a character with the input requests
     public function createCharacter(Request $request)
     {
-        // Get the currently logged-in user
         $user = Auth::user();
 
-        // Create a new character
         $characters = new Characters;
         $characters->level = $request->input("level");
         $characters->character_name = $request->input("character_name");
         $characters->class = $request->input("class");
-        
-        // Associate the character with the user
+
         $characters->user_id = $user->id;
 
-        // Save the character
         $characters->save();
 
         return redirect("/characters");
     }
 
+    // Function used to edit a character with the input requests
     public function editCharacter(request $request){
         $characters = characters::find($request->input("charId"));
         $characters->level = $request->input("level");
@@ -51,15 +51,8 @@ class CharacterController extends Controller
         return redirect("/characters");
     }
 
-    public function searchCharacter(Request $request) {
-        $searchTerm = $request->input('searchTerm');
-        $userId = Auth::user()->id;
-        $characters = characters::where('character_name', 'LIKE', '%' . $searchTerm . '%')
-                     ->where('user_id', $userId)
-                     ->get();
-        return response()->json($characters);
-    }
-
+    
+    // Function used to delete a character, $id is an id passed in by the route to delete that specific character
     public function deleteCharacter($id) {
         $user = Auth::user();
         $character = Characters::find($id);

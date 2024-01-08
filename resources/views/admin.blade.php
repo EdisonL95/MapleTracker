@@ -53,14 +53,10 @@
         <div class="col-12">
             <form action="/attempt_change_landing" method="post">
                 @csrf
-
-                <!-- Textarea input -->
                 <div class="form-group">
                     <label for="textArea">Enter New Landing Text:</label>
                     <textarea class="form-control mt-3"id="landingText" name="landingText" rows="4" placeholder="Type your text here"></textarea>
                 </div>
-
-                <!-- Save button -->
                 <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
@@ -127,6 +123,7 @@
 
 <script>
     $(document).ready(function () {
+        // User search function, used to search users by name in the user table.
         $('#userSearch').on('keyup', function () {
             var value = $('#userSearch').val().toLowerCase().trim();
             if (value === "") {
@@ -150,6 +147,7 @@
             }
         });
 
+        // Base collection search, used to search tasks by name/tag in the base collection
         $('#baseCollectionSearch').on('keyup', function () {
             var value = $('#baseCollectionSearch').val().toLowerCase().trim();
             if (value === "") {
@@ -173,29 +171,35 @@
             }
         });
 
+        // Used for the task creation modal, makes it so that the reward input is hidden and emptied on switch.
         $("#taskType").on("change", function () {
             var selectedType = $("#taskType").val();
             if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
                 $("#rewardInput").show();
             } else {
+                $("#rewardInput").val('');
                 $("#rewardInput").hide();
             }
         });
-        
+
+        // Used for the task edit modal, makes it so that the reward input is hidden and emptied on switch.
         $("#taskTypeEdit").on("change", function () {
             var selectedType = $("#taskTypeEdit").val();
             if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
                 $("#rewardInputEdit").show();
             } else {
+                $("#rewardInputEdit").val('');
                 $("#rewardInputEdit").hide();
             }
         });
 
+        // Used for the task edit modal, sets the id of the modal to the current taskid to be used for editing the specific field.
         $('#editTaskModal').on('show.bs.modal', function (e) {
             var taskId = $(e.relatedTarget).data('task-id');
             $(".modal-body #taskId").val(taskId);
         });
 
+        // Used for filtering tasks by the filter term.
         $('#taskFilter').change(function () {
             var selectedValue = $(this).val().toLowerCase();
             if (selectedValue === "none") {

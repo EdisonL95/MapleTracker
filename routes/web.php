@@ -28,7 +28,6 @@ Route::get('/', function () {
 Route::controller(CharacterController::class)->group(function() {
     Route::get("/characters", "displayCharactersPage")->middleware('auth');
     Route::post("/attempt_create_character", 'createCharacter')->middleware('auth');
-    Route::post('/search_character', "searchCharacter")->middleware('auth');
     Route::get('/attempt_delete_character/{id}', "deleteCharacter")->middleware('auth');
     Route::post('/attempt_edit_character', "editCharacter")->middleware('auth');
 });
