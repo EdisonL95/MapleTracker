@@ -177,7 +177,7 @@
             if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
                 $("#rewardInput").show();
             } else {
-                $("#rewardInput").val('');
+                $('input[name="reward"]').val('');
                 $("#rewardInput").hide();
             }
         });
@@ -188,7 +188,7 @@
             if (selectedType === 'Daily Boss' || selectedType === 'Weekly Boss') {
                 $("#rewardInputEdit").show();
             } else {
-                $("#rewardInputEdit").val('');
+                $('input[name="reward"]').val('');
                 $("#rewardInputEdit").hide();
             }
         });
