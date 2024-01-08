@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
-    // Display the forum, paginate used to create pages of 5 threads when receiving the table data
+    // Display the forum, paginate used to create pages of 5 threads when receiving the table data for regular threads, pages of three for announcements
     public function displayForum()
     {
         $threads = Threads::where('is_announcement', false)->paginate(5);
-        $announcements = Threads::where('is_announcement', true)->paginate(3);
+        $announcements = Threads::where('is_announcement', true)->get();
         return view("forum", ['announcements' => $announcements, 'threads' => $threads]);
     }
 
@@ -29,7 +29,7 @@ class ForumController extends Controller
     public function createThread(Request $request)
     {
         $user = Auth::user();
-
+        $announcementCount = Threads::where('is_announcement', true)->count();
         $thread = new Threads;
         $thread->title = $request->input("title");
         $thread->creater_name = $user->name;
@@ -37,18 +37,25 @@ class ForumController extends Controller
         $thread->contents = $request->input("contents");
         $thread->is_announcement = $request->has("announcementcheck");
         $thread->user_id = $user->id;
+        if ($announcementCount < 3 && $thread->is_announcement){
+            $thread->save();
+        }
+        else if ($announcementCount >= 3 && $thread->is_announcement) {
+            return redirect("/forum");
+        }
         $thread->save();
         return redirect("/forum");
     }
 
-    // set a thread to announcement, un set if it is already one
+    // set a thread to announcement, un set if it is already one limit to three total threads
     public function setAnnouncement($threadId)
     {
         $thread = Threads::find($threadId);
+        $announcementCount = Threads::where('is_announcement', true)->count();
         if($thread->is_announcement == 1){
             $thread->is_announcement = 0;
         }
-        else {
+        else if ($announcementCount < 3){
             $thread->is_announcement = 1;
         }
         $thread->save();

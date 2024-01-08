@@ -17,7 +17,6 @@
     <div class="col-12">
         <h1>Announcements</h1>
         @foreach ($announcements as $announcement)
-        @if ($announcement->is_announcement)
         <div class="card" id="{{$announcement->title}}">
             <div class="card-body">
                 <h2 class="card-title">
@@ -37,11 +36,7 @@
                 @endif
             </div>
         </div>
-        @endif
         @endforeach
-        <div class="d-flex justify-content-center">
-            {{$announcements->links("pagination::bootstrap-5")}}
-        </div>
     </div>
 </div>
 <div id="lineForum"></div>
