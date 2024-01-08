@@ -9,6 +9,11 @@
                     {{ $errors->first('name') }}
                 </div>
             @endif
+            @if($errors->has('password'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('password') }}
+                </div>
+            @endif
             <h2>Login</h2>
             <form action="/attempt_login" method="post">
                 @csrf
