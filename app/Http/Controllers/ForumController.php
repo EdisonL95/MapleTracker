@@ -12,8 +12,9 @@ class ForumController extends Controller
     // Display the forum, paginate used to create pages of 5 threads when receiving the table data
     public function displayForum()
     {
-        $threads = Threads::paginate(5);;
-        return view("forum", ['threads' => $threads]);
+        $threads = Threads::where('is_announcement', false)->paginate(5);
+        $announcements = Threads::where('is_announcement', true)->paginate(3);
+        return view("forum", ['announcements' => $announcements, 'threads' => $threads]);
     }
 
     // Display the thread with posts, paginate used to create pages of 10 posts when receiving table data
