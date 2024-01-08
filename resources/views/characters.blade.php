@@ -20,8 +20,9 @@
     $(document).ready(function () {
         $('#characterSearch').on('keyup', function () {
             var value = $('#characterSearch').val().toLowerCase().trim();
+            console.log(value)
             if (value === "") {
-                $(".taskManagerTableRow").show();
+                $(".characterCard").show();
             }
             else{
                 $(".characterCard").each(function () {
