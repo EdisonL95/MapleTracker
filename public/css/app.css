@@ -111,7 +111,7 @@ p {
 }
 #taskTableManager{
     margin-top: 5px;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF ;
     color: black !important;
     border-radius: 10px;
 }
@@ -186,3 +186,4 @@ li {
     color: black;
     list-style: none;
 }
+
