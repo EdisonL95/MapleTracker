@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="form-group col-md-4 align-center">
+            @if($errors->has('error'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('error') }}
+                </div>
+            @endif
             <h2>Login</h2>
             <form action="/attempt_login" method="post">
                 @csrf
