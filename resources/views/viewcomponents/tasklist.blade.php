@@ -38,7 +38,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 ms-auto d-flex justify-content-end" id="taskColumn">
-                            <input type="text" class="form-control characterTaskSearch" placeholder="Test Search"
+                            <input type="text" class="form-control characterTaskSearch" placeholder="Search by character name/tag"
                                 aria-label="Default">
                         </div>
                     </div>

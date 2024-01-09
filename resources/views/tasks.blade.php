@@ -120,7 +120,8 @@
 
         // Function used to search a characters tasks by tag or name
         $('.characterTaskSearch').on('keyup', function () {
-            var value = $('.characterTaskSearch').val().toLowerCase().trim();
+            var value = $(this).val().toLowerCase().trim();
+            console.log(value)
             if (value === "") {
                 $(".characterTaskListRow").show();
             } else {
